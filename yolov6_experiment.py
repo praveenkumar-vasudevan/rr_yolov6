@@ -4,13 +4,14 @@ from pathlib import Path
 import os
 import zipfile
 import uuid
+import sys
 
+sys.path.insert(0, './tools')
 # if (not os.path.exists('./yolov6/__init__.py')):
 #     with open('./yolov6/__init__.py', 'w') as fp:
 #         pass
 
-import argparse
-from .tools.train import main, get_args_parser
+from train import main, get_args_parser
 
 if __name__ == '__main__':
     task = Task.init(project_name='Evaluation', task_name='Yolov6 Training')
