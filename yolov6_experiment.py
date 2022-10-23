@@ -1,4 +1,4 @@
-from clearml import Dataset, Task
+from clearml import Dataset, Task, Logger
 import tempfile
 from pathlib import Path
 import os
@@ -7,15 +7,13 @@ import uuid
 import sys
 
 sys.path.insert(0, './tools')
-# if (not os.path.exists('./yolov6/__init__.py')):
-#     with open('./yolov6/__init__.py', 'w') as fp:
-#         pass
 
 from train import main, get_args_parser
 
 if __name__ == '__main__':
     task = Task.init(project_name='Evaluation', task_name='Yolov6 Training')
 
+    
     args = get_args_parser().parse_args()
     # download dataset
     dataset_name="yolov6_dataset"
@@ -27,7 +25,8 @@ if __name__ == '__main__':
     ).get_local_copy()
 
     print (dataset_path)
-
+    Logger.current_logger().report_text(dataset_path)
+    
     # extract the dataset
     tempdir = tempfile.gettempdir()
     tf = uuid.uuid4().hex
@@ -49,6 +48,7 @@ if __name__ == '__main__':
     yaml = Path(p) / 'dataset.yaml'
 
     print (f'yaml file exists: {yaml.exists()}')
+    Logger.current_logger().report_text(f'yaml file exists: {yaml.exists()}')
 
     if (yaml.exists()):
         # creating a variable and storing the text
@@ -80,4 +80,4 @@ if __name__ == '__main__':
     main(args=args)
 
 
-# clearml-task --project Evaluation --name "Yolov6 training" --repo "git@github.com:praveenkumar-vasudevan/clearml-yolov6.git" --branch "main" --script "yolov6_experiment.py" --requirement "yolov6/requirements.txt" --queue default --args batch=32 conf=configs/yolov6n.py data=data/coco.yaml device=0
+# clearml-task --project Evaluation --name "Yolov6 training" --repo "git@github.com:praveenkumar-vasudevan/rr_yolov6.git" --branch "main" --script "yolov6_experiment.py" --requirement "requirements.txt" --queue default --args batch=32 conf=configs/yolov6n.py data=data/coco.yaml device=0 img-size=416 check-images=1 check-labels=1 write_trainbatch_tb=1
