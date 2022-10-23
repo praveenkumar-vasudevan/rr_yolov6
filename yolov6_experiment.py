@@ -80,4 +80,4 @@ if __name__ == '__main__':
     main(args=args)
 
 
-# clearml-task --project Evaluation --name "Yolov6 training" --repo "git@github.com:praveenkumar-vasudevan/rr_yolov6.git" --branch "main" --script "yolov6_experiment.py" --requirement "requirements.txt" --queue default --args batch=32 conf=configs/yolov6n.py data=data/coco.yaml device=0 img-size=416 check-images=1 check-labels=1 write_trainbatch_tb=1
+# clearml-task --project Evaluation --name "Yolov6 training" --repo "git@github.com:praveenkumar-vasudevan/rr_yolov6.git" --branch "main" --script "yolov6_experiment.py" --requirement "requirements.txt" --queue default --args batch=32 conf=configs/yolov6n.py data=data/coco.yaml device=0 img_size=416 check_images=1 check_labels=1 write_trainbatch_tb=1
